@@ -30,7 +30,7 @@
             <button class="btn"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
             <button class="btn"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
         </div>
-        <div class="pane-row">index</div>
+        <div class="pane-row"><a href="">index</a></div>
         <div class="pane-row" style="overflow: auto;" id="table-pane" :style="{height: tableHeight}">
             <table style="width: 100%;">
                 <thead>
@@ -42,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr v-for="(d,index) in tableData" :index="index" @click="trClick(event)">
+                    <tr v-for="(d,index) in tableData" :index="index" @dblclick="trDBClick(event)">
                         <td>{{d.name}}</td>
                         <td>{{d.size}}</td>
                         <td>{{d.filetype}}</td>

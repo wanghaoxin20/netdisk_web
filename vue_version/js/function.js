@@ -44,20 +44,26 @@ window.onload = function () {
             paneWidth: window.innerWidth - 250 + "px",
             paneHeight: window.innerHeight -70 + "px",
             tableHeight: window.innerHeight - 70 - 80 - 58 - 20 + "px",
-            tableData: []
+            tableData: [],
+            crtPath: "/",
         },
         methods: {
             updateTable: function(path) {
                 var that = this;
-                axios.get("http://localhost:8080/netdisk/files", {params: {path: path}})
+                let form = new FormData();
+                form.append("path", path);
+                axios.post("http://localhost:8080/netdisk/files", form, {headers:{"Content-Type": "multipart/form-data"}})
                 .then(function(res){
                     that.tableData = res.data;
                 }).catch(function(error) {
                     alert("error" + error);
                 });
             },
-            trClick: function(tr) {
-                alert(tr.currentTarget.getAttribute("index"));
+            trDBClick: function(e) {
+                var fp = this.tableData[e.currentTarget.getAttribute("index")];
+                if (fp.isFile == false) {
+                    this.updateTable("/" + fp.name);
+                }
             }
         },
         created() {
