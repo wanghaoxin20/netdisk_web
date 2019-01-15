@@ -8,11 +8,16 @@
     <link href="./css/style.css" rel="stylesheet">
     <script src="./js/function.js"></script>
     <script src="./js/vue/2.5.21/vue.min.js"></script>
+    <script src="./js/icon/dir.js"></script>
+    <script src="./js/icon/file.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 </head>
 
 <body>
+    <div id="addDirPane" class="addDirPane" :style="{height:height, display:display}">
+        <div style="width: 50%;height:60px;margin: 0 60px;background: white"></div>
+    </div>
     <nav class="header" id="nav-header">
         <ul>
             <li class="h-item h-main"><i class="fa fa-cloud fa-1x"></i>{{title}}</li>
@@ -21,17 +26,20 @@
     <div class="bar" id="left-bar" :style="{height:height}">
         <ul>
             <li class="bar-item itemActive" @click="changeItem(0)"><i class="fa fa-file fa-2x"></i>&emsp;{{item1}}</li>
-            <li class="bar-item" @click="changeItem(1)"><i class="fa fa-user-circle fa-2x"></i>&emsp;{{item2}}</a>
-            <li class="bar-item" @click="changeItem(2)"><i class="fa fa-chevron-circle-left fa-2x"></i>&emsp;{{item3}}</a>
+            <li class="bar-item" @click="changeItem(1)"><i class="fa fa-user-circle fa-2x"></i>&emsp;{{item2}}</li>
+            <li class="bar-item" @click="changeItem(2)"><i class="fa fa-chevron-circle-left fa-2x"></i>&emsp;{{item3}}</li>
         </ul>
     </div>
     <div class="pane" id="pane" :style="{width:paneWidth, height:paneHeight}">
         <div class="pane-row">
             <button class="btn"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
-            <button class="btn"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
+            <button class="btn" @click="mkdir(crtPath, 'test1')"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
         </div>
-        <div class="pane-row"><a href="">index</a></div>
-        <div class="pane-row" style="overflow: auto;" id="table-pane" :style="{height: tableHeight}">
+        <div class="pane-row" style="margin-left:20px;">
+            <span class="returnDir" @click="update('/')"><i class="fa fa-reply fa-1x"></i> 返回根目录</span>丨
+            <span class="ind" v-for="(n, index) in getPaths()" @click="cdTo(index)">{{">" + n}} </span>
+        </div>
+        <div class="pane-row" id="table-pane" :style="{height: tableHeight}">
             <table style="width: 100%;">
                 <thead>
                     <tr>
@@ -42,12 +50,19 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr v-for="(d,index) in tableData" :index="index" @dblclick="trDBClick(event)">
+                    <tr v-for="(d,index) in tableData" @dblclick="trDBClick(index)">
                         <td>{{d.name}}</td>
                         <td>{{d.size}}</td>
-                        <td>{{d.filetype}}</td>
-                        <td v-if="d.file == true">
-                            <span><i class="fa fa-cloud-download fa-1x"></i></span>
+                        <td :class="{colorFile:d.isFile, colorDir:!d.isFile}">
+                            <svg class="icon" aria-hidden="true" v-if="!d.isFile">
+                                <use xlink:href="#icon-folder__easyi"></use>
+                            </svg>
+                            <svg class="icon" aria-hidden="true" v-else-if="d.isFile">
+                                <use xlink:href="#icon-wenjian-"></use>
+                            </svg>
+                            {{d.filetype}}</td>
+                        <td v-if="d.isFile == true">
+                            <span><i class="fa fa-cloud-download fa-1x" @click="download(index)"></i></span>
                         </td>
                         <td v-else></td>
                     </tr>

@@ -48,26 +48,82 @@ window.onload = function () {
             crtPath: "/",
         },
         methods: {
-            updateTable: function(path) {
+            //请求并更新表格数据
+            update: function(path) {
                 var that = this;
-                let form = new FormData();
-                form.append("path", path);
-                axios.post("http://localhost:8080/netdisk/files", form, {headers:{"Content-Type": "multipart/form-data"}})
+                axios.post("http://localhost:8080/netdisk/files", {path:path}, {headers:{"Content-Type": "application/json;charset=utf-8"}})
                 .then(function(res){
-                    that.tableData = res.data;
+                    //成功请求后返回数据的处理
+                    if (res.data.status == 200) {
+                        that.tableData = res.data.data;
+                        that.crtPath = path; //更新当前路径
+                    } else if (res.data.status == 400) {
+                        alert("error:" + res.data.msg);
+                    }
                 }).catch(function(error) {
                     alert("error" + error);
                 });
             },
-            trDBClick: function(e) {
-                var fp = this.tableData[e.currentTarget.getAttribute("index")];
+            //双击表格行
+            trDBClick: function(index) {
+                var fp = this.tableData[index];
                 if (fp.isFile == false) {
-                    this.updateTable("/" + fp.name);
+                    this.update(this.crtPath + fp.name + "/");
                 }
+            },
+            //下载文件
+            download: function(index) {
+                var fp = this.tableData[index];
+                if (fp.isFile == true) {
+                    window.open("http://localhost:8080/NetDisk/" + this.crtPath + fp.name);
+                }
+            },
+            //获取路径
+            getPaths: function() {
+                var strs = this.crtPath.split("/");
+                var reg = /^\/+|\s+$/;
+                var paths = [];
+                var j = 0;
+                for (i in strs) {
+                    if (!reg.test(strs[i]) && strs[i] != "") {
+                        paths[j] = strs[i];
+                        j++;
+                    }
+                }
+                return paths;
+            },
+            //跳转目录
+            cdTo: function(index) {
+                var paths = this.getPaths();
+                var p = "";
+                //拼接路径path
+                for (var i = 0; i <= index; i++) {
+                    console.log(paths[i]);
+                    p = p + "/" + paths[i];
+                } 
+                this.update(p + "/");
+
+            },
+            mkdir: function(crtpath, dirname) {
+                var that = this;
+                axios.post("http://localhost:8080/netdisk/mkdir", {path: crtpath, dirname: dirname})
+                .then(function(res){
+                    //成功请求后返回数据的处理
+                    if (res.data.status == 200) {
+                        that.update(that.crtPath);
+                    } else if (res.data.status == 400) {
+                        alert("error:" + res.data.msg);
+                    }
+                }).catch(function(error) {
+                    alert("error" + error);
+                });
             }
+
+
         },
+        //初始化
         created() {
-            this.updateTable("/");
+            this.update("/");
         },
         computed: {
             width:{
@@ -98,11 +154,31 @@ window.onload = function () {
         }
     });
 
+    var addDirPane = new Vue({
+        el: '#addDirPane',
+        data: {
+            height: window.innerHeight + "px",
+            display: "none"
+        },
+        computed: {
+            height: {
+                get: function() {
+                    return this.height;
+                },
+                set: function(height) {
+                    this.height = height;
+                }
+            }
+        }
+
+    });
+
     //窗口resize事件
     window.onresize = function() {
         leftBar.height = window.innerHeight - 70 + "px";
         pane.width = window.innerWidth - 250 + "px";
         pane.height = window.innerHeight - 70 + "px";
         pane.tableHeight = window.innerHeight - 70 - 80 - 58 - 20 + "px";
+        addDirPane.height = window.innerHeight + "px";
     }
 }

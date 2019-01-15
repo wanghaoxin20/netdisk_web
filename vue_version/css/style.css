@@ -11,7 +11,7 @@ li {
 
 td,
 th {
-    height: 60px;
+    height: 55px;
     text-align: left;
     font-size: 16px;
     font-weight: bold;
@@ -39,10 +39,14 @@ tr:hover th {
     color: white;
 }
 
+tr:hover td {
+    color: white;
+}
 
-td>a {
+
+td {
     font-family: "Microsoft YaHei", "serif";
-    color: black;
+    color: rgb(100, 100, 100);
 }
 
 span {
@@ -147,5 +151,72 @@ span {
 .pane-row {
     width: 98%;
     margin: 20px auto;
+    overflow: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+.ind {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    font-family: "Microsoft YaHei", "serif";
+    color: rgb(0, 119, 26);
+}
+
+.ind:hover {
+    color: rgb(158, 6, 6)
+}
+
+.returnDir {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    font-family: "Microsoft YaHei", "serif";
+    color: rgb(179, 46, 46);
+}
+
+.returnDir:hover {
+    color: rgb(255, 0, 0);
+}
+
+.colorDir {
+    color: rgb(183, 185, 25);
+}
+
+.colorDir:hover {
+    color: white;
+}
+
+.colorFile {
+    color: rgb(8, 44, 141);
+}
+
+.colorFile:hover {
+    color: white;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
     overflow: hidden;
+}
+
+.addDirPane {
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.3);
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    position: absolute;
 }
