@@ -1,0 +1,147 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+td,
+th {
+    height: 60px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+th {
+    color: rgb(83, 190, 142)
+}
+
+tr {
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+tr:hover {
+    background-color: rgb(83, 218, 157);
+    color: white;
+}
+
+tr:hover th {
+    color: white;
+}
+
+
+td>a {
+    font-family: "Microsoft YaHei", "serif";
+    color: black;
+}
+
+span {
+    cursor: pointer;
+}
+
+.header {
+    height: 70px;
+    width: 100%;
+    background-color: rgb(83, 190, 142);
+}
+
+.h-item {
+    color: white;
+    margin: 0;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    font-weight: bold;
+}
+
+.h-main {
+    font-size: 30px;
+    width: 250px;
+}
+
+.h-other {
+    width: 150px;
+    font-size: 20px;
+}
+
+.bar {
+    top: 0;
+    margin: 0;
+    display: inline-block;
+    width: 250px;
+    background-color: rgb(83, 190, 142);
+    left: 0;
+}
+
+.bar-item {
+    display: inline-block;
+    width: 250px;
+    height: 80px;
+    background-color: rgb(83, 190, 142);
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: "Microsoft YaHei";
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.bar-item:hover {
+    background-color: rgb(45, 209, 135);
+}
+
+.itemActive {
+    background-color: rgb(25, 223, 134);
+}
+
+.sep {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    height: 2px;
+    width: 100%;
+}
+
+.btn {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(45, 209, 135);
+    border-radius: 5px;
+    margin: 0;
+    padding: 5px;
+    outline: none;
+    border: 1px solid transparent;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+
+.btn:hover {
+    background-color: rgb(39, 228, 143);
+}
+
+.pane {
+    display: inline-block;
+    background-color: white;
+    position: absolute;
+    margin: 0 auto;
+}
+
+.pane-row {
+    width: 98%;
+    margin: 20px auto;
+    overflow: hidden;
+}

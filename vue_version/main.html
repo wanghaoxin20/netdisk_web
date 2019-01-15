@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>网盘</title>
+    <link href="./css/reset.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <script src="./js/function.js"></script>
+    <script src="./js/vue/2.5.21/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="header" id="nav-header">
+        <ul>
+            <li class="h-item h-main"><i class="fa fa-cloud fa-1x"></i>{{title}}</li>
+        </ul>
+    </nav>
+    <div class="bar" id="left-bar" :style="{height:height}">
+        <ul>
+            <li class="bar-item itemActive" @click="changeItem(0)"><i class="fa fa-file fa-2x"></i>&emsp;{{item1}}</li>
+            <li class="bar-item" @click="changeItem(1)"><i class="fa fa-user-circle fa-2x"></i>&emsp;{{item2}}</a>
+            <li class="bar-item" @click="changeItem(2)"><i class="fa fa-chevron-circle-left fa-2x"></i>&emsp;{{item3}}</a>
+        </ul>
+    </div>
+    <div class="pane" id="pane" :style="{width:paneWidth, height:paneHeight}">
+        <div class="pane-row">
+            <button class="btn"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
+            <button class="btn"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
+        </div>
+        <div class="pane-row">index</div>
+        <div class="pane-row" style="overflow: auto;" id="table-pane" :style="{height: tableHeight}">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>文件名</th>
+                        <th>大小</th>
+                        <th>类型</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <tr v-for="(d,index) in tableData" :index="index" @click="trClick(event)">
+                        <td>{{d.name}}</td>
+                        <td>{{d.size}}</td>
+                        <td>{{d.filetype}}</td>
+                        <td v-if="d.file == true">
+                            <span><i class="fa fa-cloud-download fa-1x"></i></span>
+                        </td>
+                        <td v-else></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
