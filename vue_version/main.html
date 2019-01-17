@@ -15,31 +15,36 @@
 </head>
 
 <body>
-    <div id="addDirPane" class="addDirPane" :style="{height:height, display:display}">
-        <div style="width: 50%;height:60px;margin: 0 60px;background: white"></div>
+    <div id="darkpane1" class="darkpane none-select" :style="dkp1Style">
+        <div class="addDirPane" :style="adpStyle">
+            <span class="title1">新建文件夹</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
+            <div class="sep"></div>
+            <input type="text" v-model="dirname" class="input_dn" @keydown.enter="mkdir()">
+            <button class="btn" style="margin: 35px 125px;" @click="mkdir()">确定</button>
+        </div>
     </div>
     <nav class="header" id="nav-header">
         <ul>
             <li class="h-item h-main"><i class="fa fa-cloud fa-1x"></i>{{title}}</li>
         </ul>
     </nav>
-    <div class="bar" id="left-bar" :style="{height:height}">
+    <div class="bar" id="left-bar" :style="style">
         <ul>
-            <li class="bar-item itemActive" @click="changeItem(0)"><i class="fa fa-file fa-2x"></i>&emsp;{{item1}}</li>
-            <li class="bar-item" @click="changeItem(1)"><i class="fa fa-user-circle fa-2x"></i>&emsp;{{item2}}</li>
-            <li class="bar-item" @click="changeItem(2)"><i class="fa fa-chevron-circle-left fa-2x"></i>&emsp;{{item3}}</li>
+            <li class="bar-item none-select itemActive" @click="changeItem(0)"><i class="fa fa-file fa-2x"></i>&emsp;{{item1}}</li>
+            <li class="bar-item none-select" @click="changeItem(1)"><i class="fa fa-user-circle fa-2x"></i>&emsp;{{item2}}</li>
+            <li class="bar-item none-select" @click="changeItem(2)"><i class="fa fa-chevron-circle-left fa-2x"></i>&emsp;{{item3}}</li>
         </ul>
     </div>
-    <div class="pane" id="pane" :style="{width:paneWidth, height:paneHeight}">
-        <div class="pane-row">
+    <div class="pane" id="pane" :style="paneStyle">
+        <div class="pane-row none-select">
             <button class="btn"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
-            <button class="btn" @click="mkdir(crtPath, 'test1')"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
+            <button class="btn" @click="showDNPane()"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
         </div>
-        <div class="pane-row" style="margin-left:20px;">
+        <div class="pane-row none-select" style="margin-left:20px;">
             <span class="returnDir" @click="update('/')"><i class="fa fa-reply fa-1x"></i> 返回根目录</span>丨
             <span class="ind" v-for="(n, index) in getPaths()" @click="cdTo(index)">{{">" + n}} </span>
         </div>
-        <div class="pane-row" id="table-pane" :style="{height: tableHeight}">
+        <div class="pane-row none-select" id="table-pane" :style="tableStyle">
             <table style="width: 100%;">
                 <thead>
                     <tr>
