@@ -16,11 +16,20 @@
 
 <body>
     <div id="darkpane1" class="darkpane none-select" :style="dkp1Style">
-        <div class="addDirPane" :style="adpStyle">
-            <span class="title1">新建文件夹</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
+        <div class="window" :style="windowStyle">
+            <span class="title">新建文件夹</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
             <div class="sep"></div>
             <input type="text" v-model="dirname" class="input_dn" @keydown.enter="mkdir()">
             <button class="btn" style="margin: 35px 125px;" @click="mkdir()">确定</button>
+        </div>
+    </div>
+    <div id="darkpane2" class="darkpane none-select" :style="dkp2Style">
+        <div class="window" :style="windowStyle">
+            <input type="file" name="file" id="file" style="display:none">
+            <span class="title">上传文件</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
+            <div class="sep"></div>
+            <button class="btn" @click="inputClick()">上传文件</button>
+            <button class="btn" style="margin: 35px 125px;" @click="uploadFile()">确定</button>
         </div>
     </div>
     <nav class="header" id="nav-header">
@@ -37,8 +46,8 @@
     </div>
     <div class="pane" id="pane" :style="paneStyle">
         <div class="pane-row none-select">
-            <button class="btn"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
-            <button class="btn" @click="showDNPane()"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
+            <button class="btn" @click="showUploadPane()"><i class="fa fa-cloud-upload fa-1x"></i>{{btn1_text}}</button>
+            <button class="btn" @click="showMkdirPane()"><i class="fa fa-plus-circle fa-1x"></i>{{btn2_text}}</button>
         </div>
         <div class="pane-row none-select" style="margin-left:20px;">
             <span class="returnDir" @click="update('/')"><i class="fa fa-reply fa-1x"></i> 返回根目录</span>丨
@@ -67,9 +76,12 @@
                             </svg>
                             {{d.filetype}}</td>
                         <td v-if="d.isFile == true">
-                            <span><i class="fa fa-cloud-download fa-1x" @click="download(index)"></i></span>
+                            <span><i class="fa fa-cloud-download fa-lg" @click="download(index)"></i></span>
+                            <span><i class="fa fa-trash-o fa-lg" @click="del(index)"></i></span>
                         </td>
-                        <td v-else></td>
+                        <td v-else>
+                            <span><i class="fa fa-trash-o fa-lg" @click="del(index)"></i></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

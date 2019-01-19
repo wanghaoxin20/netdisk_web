@@ -207,7 +207,7 @@ input {
   position: absolute;
 }
 
-.addDirPane {
+.window {
   width: 350px;
   height: 200px;
   margin: 0;
@@ -230,7 +230,7 @@ input {
   cursor: pointer;
 }
 
-.title1 {
+.title {
   color: rgb(66, 66, 66);
   font-weight: bold;
   font-family: 'Microsoft YaHei','SF Pro Display',Roboto,Noto,Arial,'PingFang SC',sans-serif;
