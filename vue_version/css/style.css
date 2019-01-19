@@ -231,6 +231,7 @@ input {
 }
 
 .title {
+  display: inline-block;
   color: rgb(66, 66, 66);
   font-weight: bold;
   font-family: 'Microsoft YaHei','SF Pro Display',Roboto,Noto,Arial,'PingFang SC',sans-serif;

@@ -17,7 +17,7 @@
 <body>
     <div id="darkpane1" class="darkpane none-select" :style="dkp1Style">
         <div class="window" :style="windowStyle">
-            <span class="title">新建文件夹</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
+            <div class="title">新建文件夹</div><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
             <div class="sep"></div>
             <input type="text" v-model="dirname" class="input_dn" @keydown.enter="mkdir()">
             <button class="btn" style="margin: 35px 125px;" @click="mkdir()">确定</button>
@@ -25,11 +25,12 @@
     </div>
     <div id="darkpane2" class="darkpane none-select" :style="dkp2Style">
         <div class="window" :style="windowStyle">
-            <input type="file" name="file" id="file" style="display:none">
-            <span class="title">上传文件</span><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
+            <input type="file" name="file" id="file" style="display:none" v-model="file">
+            <div class="title">上传文件</div><i @click="close()" class="fa fa-close fa-1x close none-select"></i>
             <div class="sep"></div>
-            <button class="btn" @click="inputClick()">上传文件</button>
-            <button class="btn" style="margin: 35px 125px;" @click="uploadFile()">确定</button>
+            <span><i class="fa fa-folder-open fa-2x" @click="inputClick()"></i></span>
+            <p class="title" style="width:100%;overflow:hidden;"> {{file}}</p>
+            <button class="btn" style="margin: 45px 125px;" @click="uploadFile()">确定</button>
         </div>
     </div>
     <nav class="header" id="nav-header">

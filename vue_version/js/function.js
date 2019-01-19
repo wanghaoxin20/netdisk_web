@@ -199,7 +199,8 @@ window.onload = function () {
       windowStyle: {
         left: (window.innerWidth - 350) / 2 + "px",
         top: (window.innerHeight - 240) / 2 + "px"
-      }
+      },
+      file: ""
     },
     methods: {
       uploadFile: function () {
@@ -229,7 +230,7 @@ window.onload = function () {
         document.getElementById("file").click();
       },
       close: function () {
-        document.getElementById("file").files[0] = null;
+        this.file = null;
         this.dkp2Style.display = "none";
       }
     }
