@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var base_url = "http://localhost:8080/netdisk/";
+    var NetDisk_url = "http://localhost:8080/NetDisk/";
 
     var crtpath = "/";
     var fileData = null;
@@ -72,7 +73,7 @@ $(document).ready(function () {
         a.click(function () {
             if (rowData.isFile == true) {
                 window.open(
-                    "http://localhost:8080/NetDisk/" + crtpath + rowData.name
+                    NetDisk_url + crtpath + rowData.name
                   );
             } else {
                 update(crtpath + fileData[index].name + "/");
